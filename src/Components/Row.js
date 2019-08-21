@@ -7,42 +7,39 @@ class Row extends Component {
     }
 
     componentDidMount() {
+        const { Repo } = this.props;
 
-        axios.get(this.props.repo.languages_url)
+        axios.get(Repo.languages_url)
             .then(res => {
-                console.log(res);
+
                 this.setState({ languages: res.data })
-                console.log(this.state);
+
             })
             .catch(error => {
                 console.log(error);
 
             })
-    }
 
-    returnLanguages() {
-        let lang = this.state.languages;
-        for (let key in lang) {
-            console.log(key);
-            
-            if (lang.hasOwnProperty(key)) {
-                const element = lang[key];
-            }
-            return key + ', ';
-        }
     }
 
     render() {
+        const { id, Repo } = this.props
+        console.log(this.state.languages);
+        let lang = ""
+        for (let key in this.state.languages) {
+
+            lang += key + ", ";
+        }
         return (
             <tr>
-                <td>{this.props.key}</td>
-                <td>{this.props.repo.name}</td>
-                <td>{this.props.repo.private ? 'Private' : 'Public'}</td>
-                <td><input type="checkbox" name="private" checked={this.props.repo.private ? true : false} /></td>
-                <td>{this.props.repo.private ? 'Yes' : 'No'}</td>
-                <td>{this.returnLanguages}</td>
-                <td><a className='btn' href={this.props.repo.html_url}>Go To This Repo</a></td>
-            </tr>
+                <td>{id}</td>
+                <td>{Repo.name}</td>
+                <td>{Repo.private ? 'Private' : 'Public'}</td>
+                <td><input type="checkbox" name="private" checked={Repo.private ? true : false} /></td>
+                <td>{Repo.private ? 'Yes' : 'No'}</td>
+                <td>{lang.slice(0, -2)}</td>
+                <td><a className='btn btn-primary' href={Repo.html_url}>Go To This Repo</a></td>
+            </tr >
         );
 
     }

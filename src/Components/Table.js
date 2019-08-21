@@ -3,32 +3,11 @@ import Row from './Row';
 
 export default class Table extends Component {
 
-    constructor(props){
-        super(props);
-        this.state={ term : ''}
-        this.onBtnClick = this.onBtnClick.bind(this); 
-        this.term = ''
-      }
-    
-      onInputChange(event){
-        this.term = event.target.value;
-        
-      }
 
-      onBtnClick(event){
-          event.preventDefault();
-        this.setState({term: this.term});
-        this.props.onSearch(this.term);
-      }
     render() {
-        const {searchResult} = this.props;
-
+        const { searchResult } = this.props;
         return (
             <div>
-                <div className="container mr-auto">
-                    <input type="text" className="search" onChange={this.onInputChange}/>
-                    <button className="btn" onClick={this.onBtnClick}>Search</button>
-                </div>
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -42,7 +21,7 @@ export default class Table extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {searchResult.map((repo, i) => <Row key={i} repo={repo}/>)}
+                        {searchResult.map((repo, i) => <Row id={i + 1} key={i} Repo={repo} />)}
                     </tbody>
                 </table>
             </div>
